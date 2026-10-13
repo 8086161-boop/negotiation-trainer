@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
+<title>Тренажёр переговоров</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f3f5f9;
+  padding: 20px;
+  color: #222;
+}
+main {
+  max-width: 500px;
+  margin: auto;
+}
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+}
+button {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  margin: 12px 0;
+  border: 0;
+  border-radius: 10px;
+  background: #2459d3;
+  color: white;
+  font-size: 16px;
+  text-align: left;
+}
+</style>
+</head>
+<body>
+<main>
+<h2>🎯 Тренажёр переговоров</h2>
+<div class="card" id="game"></div>
+</main>
+<script>
+const steps = [
+  {
+    q: "Клиент: Я пока просто смотрю квартиры.",
+    a: [
+      ["Когда планируете покупать?", 1],
+      ["Что побудило вас начать поиск?", 2],
+      ["У нас сейчас хорошие скидки!", 0]
+    ]
+  },
+  {
+    q: "Клиент: Мне кажется, цены завышены.",
+    a: [
+      ["Цены скоро вырастут!", 0],
+      ["С чем вы сравниваете стоимость?", 2],
+      ["Давайте посмотрим дешевле.", 1]
+    ]
+  },
+  {
+    q: "Клиент: Спасибо, я подумаю.",
+    a: [
+      ["Хорошо, до свидания.", 0],
+      ["Что осталось для вас неясным?", 2],
+      ["Давайте сразу забронируем.", 0]
+    ]
+  }
+];
+
+let step = 0;
+let score = 0;
+
+function show() {
+  const box = document.getElementById("game");
+
+  if (step === steps.length) {
+    box.innerHTML =
+      "<h3>Тренировка завершена!</h3>" +
+      "<p>Ваш результат: " +
+      score + " из 6 баллов.</p>" +
+      "<p>" +
+      (score >= 5
+        ? "Отличная работа!"
+        : "Продолжайте тренироваться!") +
+      "</p>" +
+      "<button onclick='restart()'>" +
+      "Начать заново</button>";
+    return;
+  }
+
+  const s = steps[step];
+  box.innerHTML =
+    "<p>Ситуация " + (step + 1) +
+    " из 3</p><h3>" + s.q + "</h3>";
+
+  s.a.forEach((answer, i) => {
+    const btn = document.createElement("button");
+    btn.textContent = answer[0];
+    btn.onclick = () => {
+      score += answer[1];
+      step++;
+      show();
+    };
+    box.appendChild(btn);
+  });
+}
+
+function restart() {
+  step = 0;
+  score = 0;
+  show();
+}
+
+show();
+</script>
+</body>
+</html>
