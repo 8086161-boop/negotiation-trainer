@@ -2,113 +2,130 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Тренажёр переговоров для риелторов новостроек</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Тренажёр переговоров новостройки</title>
 <style>
-body{margin:0;font-family:Arial;background:linear-gradient(135deg,#0f172a,#475569);color:#fff}
-.container{max-width:900px;margin:auto;padding:20px}
-.card{background:#fff;color:#111;border-radius:22px;padding:22px;margin:20px 0}
-.avatar{font-size:50px}
-button{width:100%;padding:15px;border:0;border-radius:14px;margin:8px 0;background:#2563eb;color:#fff;font-size:16px}
+body{margin:0;font-family:Arial,sans-serif;background:#111827;color:white}
+.container{max-width:700px;margin:auto;padding:20px}
+.card{background:white;color:#111;border-radius:24px;padding:24px;margin-top:20px}
+.avatar{font-size:60px}
+button{width:100%;padding:16px;margin:8px 0;border:0;border-radius:16px;background:#2563eb;color:white;font-size:16px}
 .answer{background:#eef2ff;color:#111;text-align:left}
-.result{background:#e0f2fe;padding:15px;border-radius:15px}
+.small{color:#64748b}
+.result{background:#dbeafe;padding:15px;border-radius:16px;margin-top:15px}
 </style>
 </head>
 <body>
 <div class="container">
-<h1>🎯 Тренажёр переговоров для риелторов новостроек</h1>
+<h1>🎯 Тренажёр переговоров<br>для риелторов новостроек</h1>
 <div id="app"></div>
 </div>
 
 <script>
-const cases=[
-{
-name:"Алексей, 37 лет",
+const scenario = {
+name:"Андрей, 38 лет",
 avatar:"👨🏻",
-skill:"Первый контакт",
+role:"Предприниматель",
 steps:[
 {
-client:"Здравствуйте. А что за ЖК?",
+client:"Я просто смотрю рынок.",
 answers:[
-{
-text:"Это новый жилой комплекс от застройщика. Есть разные планировки и цены.",
-score:6,
-analysis:"Вы дали информацию, но сразу перешли к презентации. Клиент пока не раскрыл свою задачу."
-},
-{
-text:"Здравствуйте! Расскажу. Подскажите, вы просто интересуетесь проектом или уже выбираете квартиру?",
-score:10,
-analysis:"Вы начали с понимания клиента. Это помогает построить диалог до подбора вариантов."
-},
-{
-text:"Могу отправить презентацию комплекса и цены.",
-score:7,
-analysis:"Вы помогаете клиенту, но есть риск остаться просто отправителем материалов."
-}
-]
-}
+["Понял. Тогда я отправлю вам несколько интересных вариантов новостроек.","Вы быстро перешли к подбору. Клиент получил информацию, но задача осталась неизвестной.",6],
+["Подскажите, что для вас сейчас самое важное при выборе новостройки?","Вы начали с понимания клиента. Хороший первый шаг для построения диалога.",10],
+["Расскажу про самые интересные проекты, которые сейчас есть на рынке.","Вы проявили экспертность, но пока говорите больше о рынке, чем о клиенте.",7]
 ]
 },
 {
-name:"Марина, 34 года",
-avatar:"👩🏼",
-skill:"Выявление потребностей",
-steps:[
-{
-client:"Какая цена на квартиры?",
+client:"Хочу понять, что сейчас вообще есть интересного.",
 answers:[
-{text:"От 6 миллионов.",score:5,analysis:"Ответили на вопрос, но не узнали задачу клиента."},
-{text:"Цена зависит от задачи. Подскажите, вы выбираете для себя или рассматриваете инвестицию?",score:10,analysis:"Вы используете вопрос для понимания потребности."},
-{text:"Отправлю вам прайс застройщика.",score:6,analysis:"Полезно, но контакт может остаться поверхностным."}
+["А какой район или формат жилья вы рассматриваете?","Вы уточняете направление поиска.",10],
+["Есть несколько сильных проектов, давайте я расскажу.","Снова переход к презентации.",7],
+["Сначала нужно понять бюджет.","Вопрос важный, но слишком рано может восприниматься как давление.",8]
+]
+},
+{
+client:"Мы с женой пока думаем. Не определились.",
+answers:[
+["Что для вас будет означать хороший выбор квартиры?","Помогает раскрыть критерии.",10],
+["Тогда я подготовлю варианты для вас и жены.","Полезно, но без понимания критериев.",7],
+["Нужно быстрее определяться, хорошие варианты уходят.","Создаёт давление.",5]
+]
+},
+{
+client:"Для нас важен район, но ещё хочется не переплатить.",
+answers:[
+["Что для вас важнее: район, цена или долгосрочная ценность квартиры?","Помогает расставить приоритеты.",10],
+["Тогда покажу самые недорогие варианты.","Сразу зафиксировали только цену.",6],
+["В новостройках цена зависит от многих факторов.","Общее объяснение без движения диалога.",7]
+]
+},
+{
+client:"А зачем мне вообще нужен риелтор? Сейчас всё есть в интернете.",
+answers:[
+["Вы правы, информации много. Моя задача помочь быстрее разобраться и выбрать подходящий вариант.","Признаёте позицию клиента и объясняете ценность.",10],
+["Я знаю рынок лучше, чем сайты.","Экспертность есть, но звучит как спор.",7],
+["Можно и самому искать.","Вы снимаете свою ценность.",5]
+]
+},
+{
+client:"Хорошо. Тогда расскажите, как вы обычно работаете.",
+answers:[
+["Сначала я понимаю вашу задачу, потом подбираю варианты, которые подходят именно вам.","Чёткая позиция консультанта.",10],
+["Я отправлю вам базу объектов.","Вы становитесь отправителем.",6],
+["Давайте сразу посмотрим квартиры.","Рано переходить к объектам.",7]
+]
+},
+{
+client:"Давайте тогда обсудим варианты.",
+answers:[
+["Отлично. Зафиксируем ваши критерии и посмотрим подходящие решения.","Логичное завершение процесса.",10],
+["Я сейчас отправлю всё, что есть.","Нет фильтрации под клиента.",6],
+["Сначала нужно выбрать конкретный ЖК.","Слишком ранний переход.",7]
 ]
 }
 ]
-}
-];
+};
 
-let current=0,step=0,total=0;
+let step=0,total=0;
 
-function home(){
-app.innerHTML=cases.map((c,i)=>`
-<div class="card">
-<div class="avatar">${c.avatar}</div>
-<h2>${c.name}</h2>
-<p>Навык: ${c.skill}</p>
-<button onclick="start(${i})">Начать кейс</button>
-</div>`).join("");
-}
-
-function start(i){
-current=i;step=0;
-showStep();
-}
-
-function showStep(){
-let c=cases[current];
-let s=c.steps[step];
+function render(){
+let s=scenario.steps[step];
 app.innerHTML=`
 <div class="card">
-<div class="avatar">${c.avatar}</div>
-<h2>${c.name}</h2>
-<p><b>Клиент:</b><br>${s.client}</p>
+<div class="avatar">${scenario.avatar}</div>
+<h2>${scenario.name}</h2>
+<p class="small">${scenario.role}</p>
+<h3>Клиент говорит:</h3>
+<p>${s.client}</p>
 <h3>Ваш ответ:</h3>
-${s.answers.map((a,i)=>`<button class="answer" onclick="choose(${i})">${a.text}</button>`).join("")}
+${s.answers.map((a,i)=>`<button class="answer" onclick="choose(${i})">${a[0]}</button>`).join("")}
 </div>`;
 }
 
 function choose(i){
-let a=cases[current].steps[step].answers[i];
-total+=a.score;
+let a=scenario.steps[step].answers[i];
+total+=a[2];
+if(step<scenario.steps.length-1){
 app.innerHTML=`
 <div class="card">
-<h2>Разбор ответа</h2>
-<div class="result">${a.analysis}</div>
-<p>Баллы: +${a.score}</p>
-<button onclick="home()">К выбору кейсов</button>
+<h2>Разбор шага ${step+1}</h2>
+<div class="result">${a[1]}</div>
+<p>Баллы: +${a[2]}</p>
+<button onclick="next()">Продолжить диалог</button>
+</div>`;
+}else{
+app.innerHTML=`
+<div class="card">
+<h2>🎯 Итог тренировки</h2>
+<div class="result">${a[1]}</div>
+<p>Ваш результат: ${total} баллов</p>
+<p>Навыки: контакт, выявление потребностей, экспертная позиция.</p>
+<button onclick="location.reload()">Пройти заново</button>
 </div>`;
 }
-
-home();
+}
+function next(){step++;render();}
+render();
 </script>
 </body>
 </html>
