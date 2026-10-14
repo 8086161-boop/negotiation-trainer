@@ -1,0 +1,113 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    color: #222;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.header p {
+    color: #666;
+    font-size: 18px;
+}
+
+.card {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.hidden {
+    display: none;
+}
+
+.case-button,
+.answer-button,
+button {
+    width: 100%;
+    padding: 16px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 12px;
+    background: #1f6feb;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.case-button:hover,
+.answer-button:hover,
+button:hover {
+    opacity: 0.85;
+}
+
+.client-card {
+    border-left: 6px solid #1f6feb;
+}
+
+.client-info p {
+    font-size: 17px;
+    line-height: 1.5;
+}
+
+.message {
+    background: #eef3f8;
+    padding: 20px;
+    border-radius: 12px;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.answer-button {
+    background: #333;
+}
+
+#reaction-card {
+    border-left: 6px solid #28a745;
+}
+
+#result-screen {
+    text-align: center;
+}
+
+.scores p {
+    background: #f0f0f0;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+@media(max-width:600px){
+    .container {
+        padding: 12px;
+    }
+
+    .header h1 {
+        font-size: 26px;
+    }
+
+    .card {
+        padding: 18px;
+    }
+}
