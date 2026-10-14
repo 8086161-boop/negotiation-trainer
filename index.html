@@ -5,13 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Тренажёр переговоров новостройки</title>
 <style>
-body{margin:0;font-family:Arial;background:#111827;color:#fff}
-.container{max-width:700px;margin:auto;padding:20px}
-.card{background:#fff;color:#111;border-radius:24px;padding:24px;margin:20px 0}
+body{margin:0;font-family:Arial;background:#0f172a;color:white}
+.container{max-width:720px;margin:auto;padding:20px}
+.card{background:white;color:#111;border-radius:24px;padding:24px;margin:20px 0}
 .avatar{font-size:60px}
-button{width:100%;padding:16px;margin:8px 0;border:0;border-radius:16px;background:#2563eb;color:white;font-size:16px}
+button{width:100%;padding:15px;margin:8px 0;border-radius:16px;border:0;background:#2563eb;color:white;font-size:16px}
 .answer{background:#eef2ff;color:#111;text-align:left}
-.result{background:#dbeafe;padding:16px;border-radius:16px}
+.tag{display:inline-block;background:#dbeafe;padding:6px 12px;border-radius:20px}
+.result{background:#dcfce7;padding:15px;border-radius:16px}
 </style>
 </head>
 <body>
@@ -19,74 +20,66 @@ button{width:100%;padding:16px;margin:8px 0;border:0;border-radius:16px;backgrou
 <h1>🎯 Тренажёр переговоров<br>риелторов новостроек</h1>
 <div id="app"></div>
 </div>
+
 <script>
 const cases=[
 {
-name:"Андрей, 38 лет", avatar:"👨🏻",
+name:"Андрей, 38 лет",avatar:"👨🏻",tag:"Первый контакт",
 steps:[
-["Я просто смотрю рынок.",
-["Подскажите, что для вас сейчас самое важное при выборе новостройки?",10],
-["Отправлю несколько вариантов, чтобы вы посмотрели.",6],
-["Расскажу про самые интересные ЖК.",7]],
-["Рассматриваем для семьи, но пока не понимаем район.",
-["Что должно измениться в вашей жизни после покупки квартиры?",10],
-["Тогда покажу самые популярные варианты.",6],
-["Нужно сначала выбрать район.",7]],
-["Главное — не переплатить.",
-["А с чем вы сравниваете стоимость и что будет для вас хорошей покупкой?",10],
-["Тогда будем искать самый дешёвый вариант.",5],
-["Сейчас расскажу про акции застройщиков.",7]],
-["У нас с женой разные мнения.",
-["Давайте разберём, что важно каждому из вас.",10],
-["Пусть жена сама определится.",5],
-["Я покажу вам разные квартиры.",7]],
-["Почему мне нужен риелтор? Всё есть в интернете.",
-["Информации действительно много. Моя задача — помочь отфильтровать варианты под вашу задачу.",10],
-["Я знаю рынок лучше сайтов.",7],
-["Можно и самостоятельно искать.",5]],
-["Хорошо, а что дальше?",
-["Сначала зафиксируем ваши критерии, потом подберём подходящие решения.",10],
-["Давайте сразу смотреть квартиры.",7],
-["Отправлю каталог объектов.",6]],
-["Давайте посмотрим варианты.",
-["Отлично, теперь мы понимаем вашу задачу и можем переходить к подбору.",10],
-["Отправлю всё, что есть на рынке.",6],
-["Покажу самые дорогие проекты.",5]]
-]
+["А что за ЖК?","Вы только увидели рекламу нового проекта.","Начать с вопроса о задаче клиента.",10],
+["А какая цена?","Клиент пытается получить только цифру.","Уточнить контекст покупки перед подбором.",10],
+["Я пока просто смотрю.","Клиент не готов покупать прямо сейчас.","Раскрыть мотив и критерии выбора.",10],
+["Мне нужно посоветоваться с женой.","Решение семейное.","Понять интересы всех участников.",10],
+["Почему я должен работать с вами?","Клиент проверяет ценность специалиста.","Объяснить пользу процесса.",10]]
+},
+{
+name:"Мария, 42 года",avatar:"👩🏻",tag:"Возражения",
+steps:[
+["Мне дорого.","Клиент обозначил сомнение.","Исследовать, что именно дорого.",10],
+["У другого застройщика дешевле.","Клиент сравнивает предложения.","Вернуть разговор к критериям выбора.",10],
+["Я подумаю.","Клиент откладывает решение.","Понять, что мешает двигаться дальше.",10],
+["Скиньте просто варианты.","Клиент хочет получить подборку.","Не становиться отправителем информации.",10],
+["Мне надо время.","Клиент сохраняет дистанцию.","Сохранить контакт и ценность.",10]]
 }
 ];
 
-let currentStep=0,total=0;
+let c=0,s=0,score=0;
 
+function home(){
+app.innerHTML=cases.map((x,i)=>`
+<div class="card">
+<div class="avatar">${x.avatar}</div>
+<h2>${x.name}</h2>
+<span class="tag">${x.tag}</span>
+<p>Переговорный кейс</p>
+<button onclick="start(${i})">Начать кейс</button>
+</div>`).join("");
+}
+function start(i){c=i;s=0;show();}
 function show(){
-let s=cases[0].steps[currentStep];
-app.innerHTML=`<div class="card">
-<div class="avatar">${cases[0].avatar}</div>
-<h2>${cases[0].name}</h2>
-<h3>Клиент говорит:</h3>
-<p>${s[0]}</p>
+let step=cases[c].steps[s];
+app.innerHTML=`
+<div class="card">
+<div class="avatar">${cases[c].avatar}</div>
+<h2>${cases[c].name}</h2>
+<h3>Клиент:</h3><p>${step[0]}</p>
+<h3>Контекст:</h3><p>${step[1]}</p>
 <h3>Ваш ответ:</h3>
-${[1,2,3].map(i=>`<button class="answer" onclick="choose(${i})">${s[i][0]}</button>`).join("")}
+<button class="answer" onclick="choose(10)">Попробовать исследовать потребность</button>
+<button class="answer" onclick="choose(6)">Сразу презентовать варианты</button>
+<button class="answer" onclick="choose(5)">Отправить информацию клиенту</button>
 </div>`;
 }
-function choose(i){
-let s=cases[0].steps[currentStep];
-total+=s[i][1];
-app.innerHTML=`<div class="card">
-<h2>Разбор ответа</h2>
-<div class="result">
-<p>${s[i][0]}</p>
-<p>Оценка навыка: +${s[i][1]} баллов</p>
-</div>
-<button onclick="next()">Продолжить</button>
-</div>`;
-}
-function next(){
-currentStep++;
-if(currentStep<cases[0].steps.length)show();
-else app.innerHTML=`<div class="card"><h2>🎯 Кейс завершён</h2><p>Итоговый результат: ${total}</p><p>Профиль: умение выстраивать коммуникацию и выявлять потребности.</p></div>`;
-}
+function choose(points){
+score+=points;
+if(s<cases[c].steps.length-1){
+s++;
 show();
+}else{
+app.innerHTML=`<div class="card"><h2>Кейс завершён</h2><div class="result">Результат: ${score} баллов<br><br>Анализ: сильная позиция — вести клиента через понимание задачи, а не только через презентацию объектов.</div><button onclick="home()">К кейсам</button></div>`;
+}
+}
+home();
 </script>
 </body>
 </html>
