@@ -3,96 +3,42 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Тренажёр переговоров для риелторов новостроек</title>
+<title>Тренажёр переговоров для риелторов новостроек v2.0</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#0f172a,#334155);color:#fff}
+body{margin:0;font-family:Arial;background:linear-gradient(135deg,#0f172a,#475569);color:#fff}
 .container{max-width:900px;margin:auto;padding:24px}
-h1{font-size:34px}
-.card{background:#fff;color:#111;border-radius:24px;padding:24px;margin:20px 0;box-shadow:0 15px 40px #0005}
-.avatar{width:90px;height:90px;border-radius:50%;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-size:45px}
-.tag{display:inline-block;background:#e0e7ff;padding:7px 14px;border-radius:20px}
-button{width:100%;padding:15px;border:0;border-radius:15px;background:#2563eb;color:white;font-size:16px;margin-top:12px}
-.answer{background:#f1f5f9;color:#111;text-align:left}
-.progress{background:#cbd5e1;border-radius:20px;height:12px}
-.line{background:#2563eb;height:100%;border-radius:20px}
-.small{color:#475569}
+.card{background:#fff;color:#111;border-radius:24px;padding:24px;margin:20px 0;box-shadow:0 10px 30px #0005}
+.avatar{font-size:50px;background:#dbeafe;border-radius:50%;width:90px;height:90px;display:flex;align-items:center;justify-content:center}
+button{width:100%;padding:15px;border:0;border-radius:14px;margin-top:10px;background:#2563eb;color:#fff;font-size:16px}
+.answer{background:#eef2ff;color:#111;text-align:left}
+.tag{background:#e0e7ff;padding:6px 12px;border-radius:20px;display:inline-block}
 </style>
 </head>
 <body>
 <div class="container">
 <h1>🎯 Тренажёр переговоров для риелторов новостроек</h1>
-<p>Тренировка выявления потребностей, доверительной коммуникации и проведения клиента к выбору квартиры.</p>
+<p>Тренировка навыков до этапа подбора квартиры: контакт, потребности, доверие, коммуникация.</p>
 <div id="app"></div>
 </div>
-
 <script>
 const cases=[
-["Андрей, 38 лет","👨🏻","Предприниматель","Я просто смотрю рынок"],
-["Марина, 34 года","👩🏼","Руководитель","Мне просто отправьте варианты"],
-["Сергей, 45 лет","👨🏼","Инвестор","Я сам всё найду"],
-["Елена, 41 год","👩🏻","Врач","Хочу сначала сама изучить районы"],
-["Дмитрий, 36 лет","👨🏻","IT-специалист","Мне нужно подумать"],
-["Ольга, 39 лет","👩🏼","Предприниматель","Почему именно вы?"],
-["Роман, 42 года","👨🏼","Собственник бизнеса","У меня уже есть знакомый риелтор"],
-["Анна, 33 года","👩🏻","Менеджер","Боюсь ошибиться с выбором"],
-["Игорь, 50 лет","👨🏻","Инвестор","Новостройки сейчас рискованные"],
-["Наталья, 37 лет","👩🏼","Руководитель","Мне нужен только конкретный объект"],
-["Максим, 35 лет","👨🏻","Предприниматель","Скиньте цены"],
-["Виктория, 31 год","👩🏻","Специалист","Я сравниваю всех специалистов"],
-["Алексей, 44 года","👨🏼","Директор","У меня нет времени на встречи"],
-["Мария, 40 лет","👩🏼","Юрист","Мне нужны гарантии"],
-["Павел, 46 лет","👨🏻","Инвестор","Почему сейчас покупать?"],
-["Светлана, 35 лет","👩🏻","Дизайнер","Мне важен только красивый дом"],
-["Артур, 43 года","👨🏼","Предприниматель","Я хочу максимальную скидку"],
-["Ирина, 38 лет","👩🏼","Руководитель","Мне надо обсудить с мужем"],
-["Денис, 32 года","👨🏻","Инженер","Слишком много вариантов"],
-["Татьяна, 47 лет","👩🏻","Предприниматель","Я не уверена, что готова"]
+{n:"Алексей, 37 лет",a:"👨🏻",s:"Клиент из интернета",t:"А что за ЖК?",q:"Вы разместили информацию о жилом комплексе. Клиент пишет: «А что это за ЖК?»",ans:["Это новый ЖК от застройщика, расскажу характеристики.","Здравствуйте! Расскажу. Подскажите, вы просто изучаете варианты или уже выбираете квартиру?","Могу отправить презентацию и цены."],skill:"Первый контакт"},
+{n:"Марина, 34 года",a:"👩🏼",s:"Покупатель",t:"Какая цена?",q:"Клиент пишет: «Сколько стоит квартира?»",ans:["От 6 миллионов.","Цена зависит от задачи и параметров. Подскажите, для себя рассматриваете или инвестиция?","Отправлю прайс застройщика."],skill:"Выявление потребности"},
+{n:"Сергей,45 лет",a:"👨🏼",s:"Опытный клиент",t:"Я сам всё найду",q:"Клиент говорит: «Сейчас всё есть в интернете».",ans:["Вы правы, информации много. Давайте поймём, что важно именно вам.","Риелтор лучше знает рынок.","Тогда ищите самостоятельно."],skill:"Ценность специалиста"}
 ];
 
-let current=0;
-let score=0;
-
+let total=0;
 function home(){
-app.innerHTML=cases.map((c,i)=>`
-<div class="card">
-<div class="avatar">${c[1]}</div>
-<h2>${c[0]}</h2>
-<p>${c[2]}</p>
-<div class="tag">Кейс ${i+1}</div>
-<h3>${c[3]}</h3>
-<button onclick="start(${i})">Начать кейс</button>
-</div>`).join("");
+app.innerHTML=cases.map((c,i)=>`<div class="card"><div class="avatar">${c.a}</div><h2>${c.n}</h2><p>${c.s}</p><span class="tag">${c.skill}</span><h3>${c.t}</h3><button onclick="start(${i})">Начать кейс</button></div>`).join("");
 }
-
 function start(i){
-current=i;
 let c=cases[i];
-app.innerHTML=`
-<div class="card">
-<div class="progress"><div class="line" style="width:20%"></div></div>
-<h2>${c[0]}</h2>
-<p>${c[2]}</p>
-<h3>Клиент говорит:</h3>
-<p>${c[3]}</p>
-<h3>Ваш ответ:</h3>
-<button class="answer" onclick="result(1)">Подскажите, что для вас сейчас самое важное при выборе новостройки?</button>
-<button class="answer" onclick="result(0)">Отправлю несколько вариантов, чтобы вы посмотрели.</button>
-<button class="answer" onclick="result(0)">Расскажу про самые интересные проекты.</button>
-</div>`;
+app.innerHTML=`<div class="card"><div class="avatar">${c.a}</div><h2>${c.n}</h2><p>${c.q}</p><h3>Ваш ответ:</h3>${c.ans.map((x,j)=>`<button class="answer" onclick="finish(${j})">${x}</button>`).join("")}</div>`;
 }
-
-function result(points){
-score+=points;
-app.innerHTML=`
-<div class="card">
-<h2>Разбор ответа</h2>
-<p>Сильная переговорная позиция начинается с понимания задачи клиента, а не с отправки вариантов.</p>
-<p><b>Что тренируем:</b> выявление потребностей и создание доверительного контакта.</p>
-<button onclick="home()">Вернуться к кейсам</button>
-</div>`;
+function finish(j){
+total+=j==1?10:6;
+app.innerHTML=`<div class="card"><h2>Разбор</h2><p>Сильная стратегия — сначала понять задачу клиента, затем переходить к решению.</p><p>Ваш результат: ${total}</p><button onclick="home()">Выбрать следующий кейс</button></div>`;
 }
-
 home();
 </script>
 </body>
