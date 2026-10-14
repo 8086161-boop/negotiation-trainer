@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Тренажёр переговоров для риелторов новостроек</title>
+<style>
+body{font-family:Arial;margin:0;background:linear-gradient(135deg,#0f172a,#334155);color:#fff;padding:20px}
+.card{background:#fff;color:#111;border-radius:22px;padding:20px;margin:15px 0}
+.avatar{font-size:50px;background:#dbeafe;width:90px;height:90px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+button{width:100%;padding:14px;margin-top:10px;border:0;border-radius:12px;background:#2563eb;color:#fff;font-size:16px}
+.answer{background:#eef2ff;color:#111;text-align:left}
+.tag{background:#e0e7ff;padding:5px 10px;border-radius:20px}
+</style>
+</head>
+<body>
+<h1>🎯 Тренажёр переговоров для риелторов новостроек</h1>
+<p>Выявление потребностей и построение коммуникации с клиентом.</p>
+<div id="app"></div>
+<script>
+const cases=[
+["Андрей, 38 лет","👨🏻","Предприниматель","Я просто смотрю рынок","Я пока просто смотрю варианты. Ничего конкретного покупать не планирую."],
+["Марина, 34 года","👩🏼","Руководитель","Мне просто отправьте варианты","У меня мало времени. Просто отправьте варианты."],
+["Сергей, 45 лет","👨🏼","Инвестор","Я сам всё найду","Зачем мне риелтор? Всё есть в интернете."]
+];
+function render(){
+app.innerHTML=cases.map((c,i)=>`
+<div class="card">
+<div class="avatar">${c[1]}</div>
+<h2>${c[0]}</h2>
+<p>${c[2]}</p>
+<span class="tag">Коммуникация</span>
+<h3>${c[3]}</h3>
+<button onclick="openCase(${i})">Начать кейс</button>
+</div>`).join("");
+}
+function openCase(i){
+let c=cases[i];
+app.innerHTML=`<div class="card">
+<div class="avatar">${c[1]}</div>
+<h2>${c[0]}</h2>
+<p>${c[4]}</p>
+<h3>Ваш ответ:</h3>
+<button class="answer">Подскажите, что стало причиной интереса к новостройкам? Хочу понять вашу задачу.</button>
+<button class="answer">Отправлю несколько вариантов для просмотра.</button>
+<button class="answer">Расскажу о проектах, которые сейчас есть на рынке.</button>
+<button onclick="render()">Назад</button>
+</div>`;
+}
+render();
+</script>
+</body>
+</html>
