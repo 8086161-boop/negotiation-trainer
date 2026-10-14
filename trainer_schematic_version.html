@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Тренажёр переговоров для риелторов новостроек</title>
+<style>
+body{margin:0;font-family:Arial;background:linear-gradient(135deg,#081827,#334155);color:#fff}
+.container{max-width:1100px;margin:auto;padding:25px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:20px}
+.card{background:white;color:#111;border-radius:24px;padding:22px;box-shadow:0 15px 40px #0005}
+.avatar{width:110px;height:110px;border-radius:50%;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-size:55px}
+.tag{display:inline-block;background:#e0e7ff;padding:6px 12px;border-radius:20px}
+button{width:100%;padding:15px;border:0;border-radius:15px;background:#2563eb;color:white;font-size:16px;margin-top:10px}
+.answer{background:#f1f5f9;color:#111;text-align:left}
+.info{background:#eef2ff;padding:15px;border-radius:15px}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>🎯 Тренажёр переговоров для риелторов новостроек</h1>
+<p>Тренировка навыков выявления потребностей и построения коммуникации с клиентом.</p>
+<div id="app"></div>
+</div>
+
+<script>
+const cases=[
+{
+name:"Андрей, 38 лет",
+job:"Предприниматель",
+avatar:"👨🏻",
+skill:"Выявление мотивации клиента",
+title:"Я просто смотрю рынок",
+text:"Клиент изучает новостройки, но пока не определился с покупкой.",
+dialog:"Я пока просто смотрю варианты. Ничего конкретного покупать не планирую.",
+answers:[
+"Отправлю несколько вариантов, чтобы вы посмотрели.",
+"Подскажите, что стало причиной интереса к новостройкам? Хочу понять вашу задачу.",
+"Расскажу о проектах, которые сейчас интересны на рынке."
+]
+},
+{
+name:"Марина, 34 года",
+job:"Руководитель",
+avatar:"👩🏼",
+skill:"Создание доверия",
+title:"Мне просто отправьте варианты",
+text:"Клиент хочет получить подборку без долгого разговора.",
+dialog:"У меня мало времени. Просто отправьте варианты.",
+answers:[
+"Отправлю несколько популярных вариантов.",
+"Чтобы не прислать лишнее, уточню пару моментов о вашей ситуации.",
+"Сначала нужно подробно поговорить."
+]
+},
+{
+name:"Сергей, 45 лет",
+job:"Инвестор",
+avatar:"👨🏼",
+skill:"Ценность специалиста",
+title:"Я сам всё найду",
+text:"Клиент считает, что интернет заменяет специалиста.",
+dialog:"Зачем мне риелтор? Всё есть в интернете.",
+answers:[
+"Вы правы, информации много. Давайте разберём, что важно именно в вашей ситуации.",
+"Риелтор знает рынок лучше.",
+"Тогда ищите самостоятельно."
+]
+}
+];
+
+function show(){
+document.getElementById("app").innerHTML="<div class='grid'>"+cases.map((c,i)=>`
+<div class='card'>
+<div class='avatar'>${c.avatar}</div>
+<h2>${c.name}</h2>
+<p>${c.job}</p>
+<div class='tag'>${c.skill}</div>
+<h3>${c.title}</h3>
+<p>${c.text}</p>
+<button onclick="openCase(${i})">Начать кейс</button>
+</div>`).join("")+"</div>";
+}
+
+function openCase(i){
+let c=cases[i];
+document.getElementById("app").innerHTML=`
+<div class="card">
+<div class="avatar">${c.avatar}</div>
+<h2>${c.name}</h2>
+<div class="info">${c.dialog}</div>
+<h3>Как вы ответите?</h3>
+${c.answers.map(a=>`<button class="answer">${a}</button>`).join("")}
+<button onclick="show()">Назад</button>
+</div>`;
+}
+show();
+</script>
+</body>
+</html>
